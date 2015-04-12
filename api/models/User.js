@@ -8,14 +8,26 @@
 module.exports = {
 
   attributes: {
-    userid: {
+    id: {
+      type: 'integer',
+      autoIncrement: true
+    },
+    userId: {
       type: 'string',
+      unique: true,
+      size: 20,
       required: true
     },
 
     username: {
       type: 'string',
+      size: 128,
       required: true
+    },
+
+    emailAddress: {
+      type: 'email',
+      size:64
     }
   }
 };
