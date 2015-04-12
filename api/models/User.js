@@ -12,6 +12,7 @@ module.exports = {
       type: 'integer',
       autoIncrement: true
     },
+
     userId: {
       type: 'string',
       unique: true,
