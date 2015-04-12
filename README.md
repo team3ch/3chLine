@@ -1,7 +1,6 @@
 # 3chPiazza
 
-* tw*tter clone for 3ch
-* sails/node.js application
+sails/node.js web application  
 
 ## rules
 
@@ -11,7 +10,7 @@ Follow this guideline
 [初心者向けWIPワークフロー&レビュー時の注意](http://qiita.com/sue738/items/09d9292e7654747ca208)
 
 The most important thing is _code review_  
-We review our code and make our app cool :smiley:
+We review our code each other and make our app cool :smiley:
 
 ### emoji
 
