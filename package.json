@@ -2,7 +2,7 @@
   "name": "3chLine",
   "private": true,
   "version": "0.0.0",
-  "description": "a Sails application",
+  "description": "tw*tter clone for team3ch",
   "keywords": [],
   "dependencies": {
     "sails": "~0.11.0",
@@ -32,6 +32,6 @@
     "type": "git",
     "url": "git://github.com/anonymous node/sails user/3chLine.git"
   },
-  "author": "anonymous node/sails user",
-  "license": ""
+  "author": "team3ch",
+  "license": "MIT"
 }
