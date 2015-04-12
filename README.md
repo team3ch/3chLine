@@ -14,3 +14,8 @@ follow this guideline
 
 what is the most important is _code review_  
 we review our code and make our app cool :smiley:
+
+### emoji
+
+we recommend to use emoji:+1:  
+if you don't know emoji, please take a look at [EMOJI CHEAT SHEET](http://www.emoji-cheat-sheet.com/)
