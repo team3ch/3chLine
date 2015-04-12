@@ -1,7 +1,7 @@
 /**
 * User.js
 *
-* @description :: TODO: You might write a short summary of how this model works and what it represents here.
+* @description :: a user who has an unique userid and username to display.
 * @docs        :: http://sailsjs.org/#!documentation/models
 */
 
