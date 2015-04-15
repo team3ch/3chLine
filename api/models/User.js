@@ -21,6 +21,11 @@ module.exports = {
       required: true
     },
 
+    password: {
+      type: 'string',
+      required: true
+    }
+
     username: {
       type: 'string',
       size: 128,
