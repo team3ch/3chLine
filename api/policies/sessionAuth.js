@@ -9,7 +9,9 @@
  */
 module.exports = function(req, res, next) {
 
-  // User is allowed, proceed to the next policy, 
+  return res.redirect("/");
+
+  // User is allowed, proceed to the next policy,
   // or if this is the last policy, the controller
   if (req.session.authenticated) {
     return next();
