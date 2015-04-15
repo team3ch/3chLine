@@ -21,9 +21,7 @@ module.exports = {
    * `AuthController.process()`
    */
   process: function (req, res) {
-    return res.json({
-      todo: 'process() is not implemented yet!'
-    });
+    return res.redirect('/dashboard');
   },
 
 
