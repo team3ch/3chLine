@@ -10,11 +10,12 @@ module.exports = {
   attributes: {
     id: {
       type: 'integer',
-      autoIncrement: true
+      autoIncrement: true,
+      primaryKey: true
     },
 
     userId: {
-      type: 'string',
+      type: 'alphanumericdashed',
       unique: true,
       size: 20,
       required: true
@@ -29,6 +30,11 @@ module.exports = {
     emailAddress: {
       type: 'email',
       size:64
+    },
+
+    tweets: {
+      collection: 'tweet',
+      via: 'user'
     }
   }
 };

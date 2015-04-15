@@ -13,9 +13,8 @@ module.exports = {
       autoIncrement: true
     },
 
-    userId: {
-      type: 'string',
-      size: 20,
+    user: {
+      model: 'user',
       required: true
     },
 
