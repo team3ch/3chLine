@@ -1,13 +1,13 @@
+var assert = require('assert');
+
 describe.only('User', function() {
   describe('#find()', function() {
-    it('hoge equals hoge', function(done) {
-      'hoge'.should.equal('hoge');
-      done();
+    it('user should have his/her id', function(done) {
+      User.find().limit(1).then(function(data) {
+        user = data[0]
+        assert.equal(user.id, parseInt(user.id, 10))
+        done();
+      }).catch(done)
     })
-    /**
-    User.find().then(function(data) {
-      (data.length).should.equal(1)
-    }).catch(done)
-    */
   })
 })
