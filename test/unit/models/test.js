@@ -1,7 +1,13 @@
-// test1.js
-
-describe('mochaのテスト', function() {
-  it('1 + 1は2になること', function() {
-    (1 + 1).should.equal(2);
-  });
-});
+describe.only('User', function() {
+  describe('#find()', function() {
+    it('hoge equals hoge', function(done) {
+      'hoge'.should.equal('hoge');
+      done();
+    })
+    /**
+    User.find().then(function(data) {
+      (data.length).should.equal(1)
+    }).catch(done)
+    */
+  })
+})
