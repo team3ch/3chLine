@@ -29,10 +29,5 @@ module.exports = {
 				res.json(ret)
 			});
 		});
-	},
-	withUser2: function(req, res) {
-		Tweet.find().populate('user').exec(function(err, data) {
-			res.json(data)
-		})
 	}
 };
