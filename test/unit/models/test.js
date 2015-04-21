@@ -4,8 +4,8 @@ describe.only('User', function() {
   describe('#id', function() {
     it('should be numeric', function(done) {
       User.find().limit(1).then(function(data) {
-        user = data[0]
-        assert.equal(user.id, parseInt(user.id, 10))
+        var user = data[0]
+        assert.strictEqual(user.id, parseInt(user.id, 10))
         done();
       }).catch(done)
     });
