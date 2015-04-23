@@ -35,5 +35,8 @@
     "url": "git://github.com/anonymous node/sails user/3chLine.git"
   },
   "author": "team3ch",
-  "license": "MIT"
+  "license": "MIT",
+  "devDependencies": {
+    "sails-memory": "^0.10.3"
+  }
 }
