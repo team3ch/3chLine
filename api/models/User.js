@@ -27,11 +27,6 @@ module.exports = {
       required: true
     },
 
-    emailAddress: {
-      type: 'email',
-      size:64
-    },
-
     tweets: {
       collection: 'tweet',
       via: 'user'
