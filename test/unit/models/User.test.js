@@ -115,6 +115,32 @@ describe('User', function() {
         assert(/required/.test(e.errors.username))
       }).finally(done)
     })
-    it('should be 128 chars or less')
+    it('should be string', function() {
+      assert.strictEqual(typeof user1.username, 'string')
+    })
+    it('should be 128 chars or less', function(done) {
+      var name128 = '12345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678'
+      assert.equal(name128.length, 128)
+      User.create({
+        userId: '128',
+        username: name128
+      }).then(function() {
+        assert(true)
+      }, function() {
+        assert.fail()
+      }).finally(done)
+    })
+    it('should not be 129 chars or more', function(done) {
+      var name129 = '123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789'
+      assert.equal(name129.length, 129)
+      User.create({
+        userId: '129',
+        username: name129
+      }).then(function() {
+        assert.fail()
+      }, function(e) {
+        assert(/maxLength/.test(e.errors.username))
+      }).finally(done)
+    })
   })
 })
