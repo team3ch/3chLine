@@ -58,5 +58,15 @@ describe('User', function() {
         });
       });
     })
+    it('should be unique', function(done) {
+      User.create({
+        userId: 'zoi',
+        username: 'aoba-2nd'
+      }).then(function() {
+        assert.fail();
+      }, function() {
+        assert(true);
+      }).finally(done);
+    })
   })
 })
