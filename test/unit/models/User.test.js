@@ -23,6 +23,15 @@ describe('User', function() {
     })
   })
   describe('#userId', function() {
+    it('is required', function(done) {
+      User.create({
+        username: 'missing userId'
+      }).then(function() {
+        assert.fail()
+      }, function(e) {
+        assert(/required/.test(e.errors.userId))
+      }).finally(done)
+    })
     it('should be string', function() {
       assert(typeof user1.username === 'string')
     })
@@ -68,5 +77,9 @@ describe('User', function() {
         assert(/already exists/.test(e.errors.userId))
       }).finally(done)
     })
+  })
+  describe('#username', function() {
+    it('is required')
+    it('should be in 128 chars')
   })
 })
