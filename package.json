@@ -22,6 +22,8 @@
     "rc": "~0.5.0",
     "sails": "~0.11.0",
     "sails-disk": "~0.10.0",
+    "sails-memory": "^0.10.3",
+    "mocha": "2.2.4",
     "should": "^6.0.1"
   },
   "scripts": {
@@ -35,8 +37,5 @@
     "url": "git://github.com/anonymous node/sails user/3chLine.git"
   },
   "author": "team3ch",
-  "license": "MIT",
-  "devDependencies": {
-    "sails-memory": "^0.10.3"
-  }
+  "license": "MIT"
 }
