@@ -64,9 +64,9 @@ describe('User', function() {
         username: 'aoba-2nd'
       }).then(function() {
         assert.fail();
-      }, function() {
-        assert(true);
-      }).finally(done);
+      }, function(e) {
+        assert(/already exists/.test(e.errors.userId))
+      }).finally(done)
     })
   })
 })
