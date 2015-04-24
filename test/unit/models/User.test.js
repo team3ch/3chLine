@@ -32,6 +32,26 @@ describe('User', function() {
         assert(/required/.test(e.errors.userId))
       }).finally(done)
     })
+    it('should be 20 chars or less', function(done) {
+      User.create({
+        userId: '12345678901234567890',
+        username: '20 chars'
+      }).then(function() {
+        assert(true)
+      }, function() {
+        assert.fail()
+      }).finally(done)
+    })
+    it('should not be 21 chars or more', function(done) {
+      User.create({
+        userId: '123456789012345678901',
+        username: '21 chars'
+      }).then(function() {
+        assert.fail()
+      }, function(e){
+        assert(/maxLength/.test(e.errors.userId))
+      }).finally(done)
+    })
     it('should be string', function() {
       assert(typeof user1.username === 'string')
     })
@@ -43,10 +63,17 @@ describe('User', function() {
         }).exec(done)
       });
       it('should accept alphabet-only userId', function(done) {
-        User.create({
-          userId: 'abcdefghijklmnopqrstuvwxyz',
-          username: 'only alphabet'
-        }).exec(done)
+        User.create([
+          {
+            userId: 'abcdefghij',
+            username: 'only alphabet'
+          }, {
+            userId: 'klmnopqrstuvwxyz',
+            username: 'only alphabet2'
+          }
+        ]).catch(function() {
+          assert.fail()
+        }).finally(done)
       });
       it('should accept dash-only userId', function(done) {
         User.create({
@@ -79,7 +106,15 @@ describe('User', function() {
     })
   })
   describe('#username', function() {
-    it('is required')
-    it('should be in 128 chars')
+    it('is required', function(done) {
+      User.create({
+        userId: 'username_missing'
+      }).then(function() {
+        assert.fail()
+      }, function(e) {
+        assert(/required/.test(e.errors.username))
+      }).finally(done)
+    })
+    it('should be 128 chars or less')
   })
 })
