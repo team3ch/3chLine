@@ -9,10 +9,11 @@ describe 'User', ()->
     User.create(
       userId: 'zoi',
       username: 'aoba'
-    ).then(()->
-      User.find().limit(1).then (data)->
-        user1 = data[0]
-    ).finally(done)
+    ).exec (err, u)->
+      assert.fail() if err
+      assert u.userId == 'zoi'
+      user1 = u
+      done()
 
   describe '#id', () ->
     it 'should be numeric', ()->
