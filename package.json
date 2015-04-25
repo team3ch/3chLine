@@ -29,7 +29,7 @@
   "scripts": {
     "start": "node app.js",
     "debug": "node debug app.js",
-    "test": "mocha \"test/**/*.js\""
+    "test": "coffee -c test && mocha \"test/**/*.js\""
   },
   "main": "app.js",
   "repository": {
