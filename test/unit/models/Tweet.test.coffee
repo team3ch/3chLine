@@ -8,18 +8,16 @@ describe 'Tweet', () ->
     User.create(
       userId: 'rin',
       username: 'tooyama'
-    ).exec(() ->
-      User.find().limit(1).then((data) ->
-        user1 = data[0]
-        Tweet.create(
-          user: user1.id,
-          content: 'kou chan!'
-        ).exec () ->
-          Tweet.find().limit(1).then (data) ->
-            tweet1 = data[0]
-          done()
-      ).catch(done)
-    )
+    ).exec (err, u) ->
+      assert.fail() if err
+      user1 = u
+      Tweet.create(
+        user: user1.id,
+        content: 'kou chan!'
+      ).exec (err, t) ->
+        assert.fail() if err
+        tweet1 = t
+        done()
 
   describe '#id', () ->
     it 'should be numeric', () ->
