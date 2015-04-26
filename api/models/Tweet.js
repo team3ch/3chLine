@@ -20,7 +20,9 @@ module.exports = {
 
     content: {
       type: 'text',
-      required: true
+      required: true,
+      maxLength: 1024,
+      size: 1024
     }
   }
 };

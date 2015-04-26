@@ -18,6 +18,7 @@ module.exports = {
       type: 'alphanumericdashed',
       unique: true,
       size: 20,
+      maxLength: 20,
       required: true
     },
 
@@ -29,12 +30,8 @@ module.exports = {
     username: {
       type: 'string',
       size: 128,
+      maxLength: 128,
       required: true
-    },
-
-    emailAddress: {
-      type: 'email',
-      size:64
     },
 
     tweets: {
