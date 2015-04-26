@@ -1,7 +1,7 @@
 assert = require 'assert'
 
-fail = () ->
-  assert.fail()
+fail = (err) ->
+  assert.fail(err)
 
 describe 'User', ()->
   user1 = null
@@ -12,6 +12,7 @@ describe 'User', ()->
   before (done)->
     User.create(
       userId: 'zoi',
+      password: 'pass',
       username: 'aoba'
     ).then((u)->
       assert u.userId == 'zoi'
@@ -28,6 +29,7 @@ describe 'User', ()->
   describe '#userId', () ->
     it 'is required', (done) ->
       User.create({
+        password: 'pass',
         username: 'missing userId'
       }).then(fail, (e) ->
         assert /required/.test(e.errors.userId)
@@ -36,6 +38,7 @@ describe 'User', ()->
     it 'should be 20 chars or less', (done)->
       User.create(
         userId: '12345678901234567890',
+        password: 'pass',
         username: '20 chars'
       ).then(() ->
         assert(true)
@@ -44,6 +47,7 @@ describe 'User', ()->
     it 'should not be 21 chars or more', (done) ->
       User.create(
         userId: '123456789012345678901',
+        password: 'pass',
         username: '21 chars'
       ).then(fail, (e)->
         assert /maxLength/.test(e.errors.userId)
@@ -56,16 +60,19 @@ describe 'User', ()->
       it 'should accept number-only userId', (done) ->
         User.create(
           userId: '0123456798',
+          password: 'pass',
           username: 'only number'
-        ).exec(done)
+        ).catch(fail).finally(done)
 
       it 'should accept alphabet-only userId', (done)->
         User.create(
           {
             userId: 'abcdefghij',
+            password: 'pass',
             username: 'only alphabet'
           }, {
             userId: 'klmnopqrstuvwxyz',
+            password: 'pass',
             username: 'only alphabet2'
           }
         ).catch(fail).finally(done)
@@ -73,12 +80,14 @@ describe 'User', ()->
       it 'should accept dash-only userId', (done)->
         User.create(
           userId: '-_',
+          password: 'pass',
           username:"hyphen and underscore"
-        ).exec(done)
+        ).catch(fail).finally(done)
 
       it 'should not accept comma', (done)->
         User.create(
           userId: ',',
+          password: 'pass',
           username: 'comma'
         ).then(fail, ()->
           assert(true)
@@ -87,6 +96,7 @@ describe 'User', ()->
       it 'should be unique', (done)->
         User.create(
           userId: 'zoi',
+          password: 'pass',
           username: 'aoba-2nd'
         ).then(fail, (e)->
           assert /already exists/.test(e.errors.userId)
@@ -95,7 +105,8 @@ describe 'User', ()->
   describe '#username', ()->
     it 'is required', (done)->
       User.create(
-        userId: 'username_missing'
+        userId: 'username_missing',
+        password: 'pass',
       ).then(fail, (e) ->
         assert /required/.test(e.errors.username)
       ).finally(done)
@@ -110,6 +121,7 @@ describe 'User', ()->
       assert.equal name128.length, 128
       User.create(
         userId: '128',
+        password: 'pass',
         username: name128
       ).then(()->
         assert true
@@ -122,6 +134,7 @@ describe 'User', ()->
       assert.equal name129.length, 129
       User.create(
         userId: '129',
+        password: 'pass',
         username: name129
       ).then(fail, (e)->
         assert /maxLength/.test(e.errors.username)

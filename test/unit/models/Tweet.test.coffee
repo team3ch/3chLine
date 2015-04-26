@@ -11,6 +11,7 @@ describe 'Tweet', () ->
   before (done)->
     User.create(
       userId: 'rin',
+      password: 'pass',
       username: 'tooyama'
     ).then((u) ->
       user1 = u
