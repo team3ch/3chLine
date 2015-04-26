@@ -13,11 +13,10 @@ describe 'User', ()->
     User.create(
       userId: 'zoi',
       username: 'aoba'
-    ).exec (err, u)->
-      assert.fail() if err
+    ).then((u)->
       assert u.userId == 'zoi'
       user1 = u
-      done()
+    , fail).finally(done)
 
   describe '#id', () ->
     it 'should be numeric', ()->
@@ -142,9 +141,7 @@ describe 'User', ()->
       ).then((data) ->
         user1Pop = data
         tw = user1Pop.tweets[0]
-      ).catch(() ->
-        assert.fail()
-      ).finally(done)
+      ).catch(fail).finally(done)
 
     it 'should be an empty Array without population', () ->
       assert.strictEqual(user1NoPop.tweets.length, 0)
