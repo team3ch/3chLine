@@ -34,6 +34,17 @@ module.exports.connections = {
 
   /***************************************************************************
   *                                                                          *
+  * Local memory storage for DEVELOPMENT ONLY                                *
+  *                                                                          *
+  * Installed by `npm install sails-memory`                                  *
+  *                                                                          *
+  ***************************************************************************/
+  memory: {
+    adapter: 'sails-memory'
+  },
+
+  /***************************************************************************
+  *                                                                          *
   * MySQL is the world's most popular relational database.                   *
   * http://en.wikipedia.org/wiki/MySQL                                       *
   *                                                                          *
