@@ -3,6 +3,7 @@ assert = require 'assert'
 describe 'Tweet', () ->
   user1 = null
   tweet1 = null
+  populated = null
 
   before (done)->
     User.create(
@@ -31,7 +32,7 @@ describe 'Tweet', () ->
 
     it 'should be string', () ->
       assert (typeof tweet1.content == 'string')
-      
+
     it 'should be 1024 chars or less', (done) ->
       limit = 1024
       c = 'c'
@@ -56,6 +57,24 @@ describe 'Tweet', () ->
         assert /maxLength/.test(err.errors.content)
         done()
 
+  describe '#user without population', () ->
+    it 'should be user.id', ()->
+      assert.strictEqual tweet1.user, user1.id
+
   describe '#user with population', () ->
-    it 'should have userId'
-    it 'should have username'
+    before (done)->
+      Tweet.find(
+        user: user1.id
+      ).limit(1).populate('user').exec (err, data)->
+        assert.fail() if err
+        populated = data[0]
+        done()
+
+    it 'should have user', () ->
+      assert populated.user
+
+    it 'should have userId', () ->
+      assert.strictEqual populated.user.userId, user1.userId
+
+    it 'should have username', ()->
+      assert.strictEqual populated.user.username, user1.username
