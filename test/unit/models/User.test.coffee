@@ -5,6 +5,10 @@ fail = () ->
 
 describe 'User', ()->
   user1 = null
+  user1NoPop = null
+  user1Pop = null
+  tw = null
+
   before (done)->
     User.create(
       userId: 'zoi',
@@ -123,3 +127,31 @@ describe 'User', ()->
       ).then(fail, (e)->
         assert /maxLength/.test(e.errors.username)
       ).finally(done)
+
+  describe '#tweets', () ->
+
+    before (done) ->
+      Tweet.create(
+        user: user1.id,
+        content: 'kumatta'
+      ).then(() ->
+        User.findOne(user1.id)
+      ).then((data) ->
+        user1NoPop = data
+        User.findOne(user1.id).populate('tweets')
+      ).then((data) ->
+        user1Pop = data
+        tw = user1Pop.tweets[0]
+      ).catch(() ->
+        assert.fail()
+      ).finally(done)
+
+    it 'should be an empty Array without population', () ->
+      assert.strictEqual(user1NoPop.tweets.length, 0)
+
+    it 'should be a Array with population', () ->
+      assert.strictEqual(user1Pop.tweets.length, 1)
+
+    describe 'should be a Array of Tweets', ()->
+      it 'elm has user', ()->
+        assert.strictEqual tw.user, user1Pop.id
