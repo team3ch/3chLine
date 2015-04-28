@@ -130,6 +130,9 @@ describe 'User', ()->
       ).then(fail, (err)->
         assert /20 chars or less/.test(err)
       ).finally(done)
+    it 'should not be in JSON', ()->
+      json = user1.toJSON()
+      assert.equal(/password/.test(json), false)
 
   describe '#username', ()->
     it 'is required', (done)->

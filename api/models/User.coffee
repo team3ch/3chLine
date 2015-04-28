@@ -28,6 +28,11 @@ module.exports =
       collection: 'tweet'
       via: 'user'
 
+    toJSON: ()->
+      ret = this.toObject()
+      delete ret.password
+      ret
+
   beforeCreate: (user, cb)->
     cb('password should be 20 chars or less') if user.password.length > 20
     bcrypt.genSalt 10, (err, salt)->
@@ -37,5 +42,4 @@ module.exports =
           cb err
         else
           user.password = hash
-          console.log hash
           cb()
