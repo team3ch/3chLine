@@ -1,3 +1,5 @@
+bcrypt = require 'bcrypt'
+
 module.exports =
   attributes:
     id:
@@ -28,5 +30,12 @@ module.exports =
 
   beforeCreate: (user, cb)->
     cb('password should be 20 chars or less') if user.password.length > 20
-    user.password += '_crypted' # pseudo crypting
-    cb()
+    bcrypt.genSalt 10, (err, salt)->
+      bcrypt.hash user.password, salt, (err, hash)->
+        if err
+          console.log err
+          cb err
+        else
+          user.password = hash
+          console.log hash
+          cb()
