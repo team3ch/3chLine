@@ -93,14 +93,43 @@ describe 'User', ()->
           assert(true)
         ).finally(done)
 
-      it 'should be unique', (done)->
-        User.create(
-          userId: 'zoi',
-          password: 'pass',
-          username: 'aoba-2nd'
-        ).then(fail, (e)->
-          assert /already exists/.test(e.errors.userId)
-        ).finally(done)
+    it 'should be unique', (done)->
+      User.create(
+        userId: 'zoi',
+        password: 'pass',
+        username: 'aoba-2nd'
+      ).then(fail, (e)->
+        assert /already exists/.test(e.errors.userId)
+      ).finally(done)
+
+  describe '#password', ()->
+    it 'should be required', (done) ->
+      User.create(
+        userId: 'pass_missing'
+        username: 'nopassword'
+      ).then(assert.fail, (err)->
+        assert(/required/.test(err.errors.password))
+      ).finally(done)
+    it 'should be crypted', () ->
+      assert.notStrictEqual(user1.password, 'pass')
+    it 'should be 20 chars or less', (done) ->
+      pass = '12345678901234567890'
+      assert.strictEqual(pass.length, 20)
+      User.create(
+        userId: 'pass20'
+        password: pass
+        username: 'pass20'
+      ).then(assert, fail).finally(done)
+    it 'should not be 21 chars or more', (done)->
+      pass = '123456789012345678901'
+      assert.strictEqual(pass.length, 21)
+      User.create(
+        userId: 'pass21'
+        password: pass
+        username: 'pass21'
+      ).then(fail, (err)->
+        assert /20 chars or less/.test(err)
+      ).finally(done)
 
   describe '#username', ()->
     it 'is required', (done)->
