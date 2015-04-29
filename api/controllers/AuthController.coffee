@@ -3,7 +3,10 @@ passport = require 'passport'
 module.exports =
   # login page
   login: (req, res) ->
-    res.view()
+    if req.isAuthenticated && req.isAuthenticated()
+      res.redirect 'dashboard'
+    else
+      res.view()
 
   # authentication
   process: (req, res) ->
@@ -16,16 +19,13 @@ module.exports =
       req.logIn(user, (err) ->
         if err
           console.log "error at login #{err}"
-          return res.send err
+          res.send err
         else
-          res.send {
-            message: 'logged in sucessfully'
-          }
+          res.redirect '/dashboard'
       )
     )(req, res)
-    # res.ridirect '/dashboard'
 
   # logout
   logout: (req, res)->
-    res.json
-      todo: 'logout() is not implemented yet'
+    req.logout()
+    res.redirect '/'
