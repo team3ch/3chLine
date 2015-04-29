@@ -35,7 +35,7 @@ module.exports =
 
   beforeCreate: (user, cb)->
     cb('password should be 20 chars or less') if user.password.length > 20
-    bcrypt.genSalt 10, (err, salt)->
+    bcrypt.genSalt 11, (err, salt)->
       bcrypt.hash user.password, salt, (err, hash)->
         if err
           console.log err
