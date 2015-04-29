@@ -1,7 +1,7 @@
 assert = require 'assert'
 req = require 'supertest'
 
-describe.only 'AuthController', ()->
+describe 'AuthController', ()->
   describe '#logout', ()->
     it 'should be redirect to /', (done)->
       req(sails.hooks.http.app)
