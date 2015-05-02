@@ -3,3 +3,7 @@
   password <input type="password" name="password" placeholder="your password"/><br />
   <button type="submit">login</button>
 </form>
+
+<% if (typeof error !== 'undefined') { %>
+  <div>something went wrong...</div>
+<% } %>

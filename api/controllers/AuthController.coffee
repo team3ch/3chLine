@@ -12,9 +12,8 @@ module.exports =
   process: (req, res) ->
     passport.authenticate('local', (err, user, info)->
       if err || !user
-        return res.send {
-          message: "login failed: #{err}, #{user}"
-        }
+        return res.status(401).view 'auth/login',
+          error: true
 
       req.logIn(user, (err) ->
         if err

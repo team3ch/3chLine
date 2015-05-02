@@ -12,20 +12,30 @@ before (done)->
     password: password
   ).catch(assert.fail).finally(done)
 
-describe 'AuthController', (done)->
-  describe '#login', () ->
-    it 'should be redirect to dashboard with correct password', ()->
+describe 'AuthController', ()->
+  describe '#process', () ->
+    it 'should redirect to dashboard with incoreect password', (done) ->
+      unauthorizedStatus = 401
       req(sails.hooks.http.app)
-        .post('/auth/login')
+        .post('/auth/process')
+        .send(
+          userId: userId
+          password: password + 1
+        )
+        .expect(unauthorizedStatus, done)
+
+    it 'should redirect to dashboard with correct password', (done)->
+      req(sails.hooks.http.app)
+        .post('/auth/process')
         .send(
           userId: userId
           password: password
         )
         .expect(302)
-        .expect('location', '/dashboard', done)
-  
+        .expect('location', /dashboard/, done)
+
   describe '#logout', ()->
-    it 'should be redirect to /', (done)->
+    it 'should redirect to /', (done)->
       req(sails.hooks.http.app)
         .get('/auth/logout')
         .send()
