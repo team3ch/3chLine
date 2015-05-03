@@ -4,7 +4,8 @@ module.exports =
   # login page
   login: (req, res) ->
     if req.isAuthenticated && req.isAuthenticated()
-      res.redirect 'dashboard'
+      console.log 'already authenticated!'
+      res.redirect '/dashboard'
     else
       res.view()
 
@@ -17,14 +18,14 @@ module.exports =
 
       req.logIn(user, (err) ->
         if err
-          console.log "error at login #{err}"
           res.send err
         else
-          res.redirect '/dashboard'
+          console.log 'authenticated'
+          res.status(302).redirect '/dashboard'
       )
     )(req, res)
 
   # logout
   logout: (req, res)->
     req.logout()
-    res.redirect '/'
+    res.status(302).redirect '/'
