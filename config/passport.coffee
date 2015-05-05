@@ -1,6 +1,9 @@
 passport = require 'passport'
 LocalStrategy = require('passport-local').Strategy
+TwitterStrategy = require('passport-twitter').Strategy
 bcrypt = require 'bcrypt'
+conf = {}
+require('rc')('sails', conf)
 
 findById = (id, fn) ->
   User.findOne(id).exec (err, user)->
@@ -58,6 +61,19 @@ passport.use(
     )
   )
 )
+
+# .sailsrc has twitter keys(consumerKey, consumerSecret, callbackURL)
+passport.use new TwitterStrategy conf.twitterAuth,
+  (token, tokenSecret, profile, done)->
+    User.findOne(
+      twitterAccount: profile.id
+    ).then((user)->
+      profile = user
+      done(null, profile)
+    ).catch((err)->
+      console.log err
+      done(err)
+    )
 
 module.exports =
   express:

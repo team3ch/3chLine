@@ -29,3 +29,9 @@ module.exports =
   logout: (req, res)->
     req.logout()
     res.status(302).redirect '/'
+
+  twitter: passport.authenticate('twitter')
+
+  twittercallback: passport.authenticate 'twitter',
+    failureRedirect: '/login?state=undefined'
+    successRedirect: '/dashboard'

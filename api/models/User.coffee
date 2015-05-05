@@ -28,6 +28,10 @@ module.exports =
       collection: 'tweet'
       via: 'user'
 
+    twitterAccount:
+      type: 'string'
+      unique: true
+
     toJSON: ()->
       ret = this.toObject()
       delete ret.password
