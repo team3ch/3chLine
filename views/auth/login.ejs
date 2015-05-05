@@ -1,7 +1,9 @@
 <form action="/login" method="post">
-  user id <input name="userId" placeholder="your user id"/><br />
-  password <input type="password" name="password" placeholder="your password"/><br />
-  <button type="submit">login</button>
+  user id  <input id="js-login-user-id" name="userId"
+            placeholder="your user id"/><br />
+  password <input id="js-login-password" type="password" name="password"
+            placeholder="your password"/><br />
+  <button id="js-login" type="submit">login</button>
 </form>
 <form action="/auth/twitter" method="post">
   <button type=submit>tw</button>
@@ -10,3 +12,67 @@
 <% if (typeof error !== 'undefined') { %>
   <div>something went wrong...</div>
 <% } %>
+
+
+<hr>
+<h2>sign up form</h2>
+<form>
+  <ul>
+  <li>
+    userid:   <input id="js-signup-user-id"   name="userId"   maxlength="20"  required
+                     pattern="[a-zA-Z0-9_-]"/><br />
+    note: userid is allowed alphabet, number, hyphen and dash.
+  </li>
+  <li>
+    username: <input id="js-signup-username" name="username" maxlength="128" required />
+  </li>
+  <li>
+    password: <input id="js-signup-password" name="password" type="password" required />
+  </li>
+  <li>
+    <button id-"js-signup-tw" type="submit">sign in with twitter</button>
+    <button id="js-signup"    type="submit">sign in without twitter</button>
+  </li>
+  </ul>
+</form>
+
+<!-- template側に書くかなんかしたほうがよい -->
+<script src="//code.jquery.com/jquery-git2.js"></script>
+<script>
+$(function() {
+  var validate = function() {
+    var pass = $('#js-signup-password').val();
+    if(pass.length > 20) {
+      alert("password should be 20 chars or less");
+      return false;
+    }
+    return true;
+  }
+  var loginWithSignupInfo = function() {
+    $('#js-login-user-id').val($('#js-signup-user-id').val());
+    $('#js-login-password').val($('#js-signup-password').val());
+    $('#js-login').click()
+  }
+
+  $('#js-signup').on('click', function() {
+    if(!validate()) {
+      return false
+    }
+    var data = {
+      userId: $('#js-signup-user-id').val(),
+      username: $('#js-signup-username').val(),
+      password: $('#js-signup-password').val()
+    };
+    $.post('/user/create', data, 'JSON').then(function(user) {
+      if(user && user.userId) {
+        alert('signup done!')
+        loginWithSignupInfo();
+      }
+    }, function(err) {
+      console.error(err);
+
+    })
+    return false;
+  })
+})
+</script>
