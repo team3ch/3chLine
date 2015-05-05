@@ -1,5 +1,11 @@
 {
   "generators": {
     "modules": {}
+  },
+  // development api keys
+  "twitterAuth": {
+    "consumerKey": "Z9h3s0kM2zPugZcsNNhcogXr6",
+    "consumerSecret": "LlKFwNyriA0pV7Yl6AcCIyaOrwtZbFb88E5mdCRHfch6vIdcyx",
+    "callbackURL": "http://localhost:1337/auth/twittercallback"
   }
 }
