@@ -4,7 +4,6 @@ module.exports =
   # login page
   login: (req, res) ->
     if req.isAuthenticated && req.isAuthenticated()
-      console.log 'already authenticated!'
       res.redirect '/dashboard'
     else
       res.view()
@@ -20,7 +19,6 @@ module.exports =
         if err
           res.send err
         else
-          console.log 'authenticated'
           res.status(302).redirect '/dashboard'
       )
     )(req, res)
